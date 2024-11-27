@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401db309ea341e64fa627527f0e85a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_enemyData: {fileID: 11400000, guid: f7ab86857c0b845429de2019820829a8, type: 2}
   m_currentState: 0
   m_targetPlayer: {fileID: 0}
   m_health: 30

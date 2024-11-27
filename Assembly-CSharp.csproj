@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\UnitData.cs" />
     <Compile Include="Assets\Scripts\Bullets.cs" />
     <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\UI\EnemiesKilledUI.cs" />
@@ -70,10 +69,13 @@
     <Compile Include="Assets\ThirdParty\Matthew Guz\Hits Effects FREE\Scene Demo\Script\RotationEffect.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\ShutdownTimer.cs" />
+    <Compile Include="Assets\Scripts\Data\EnemyData.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Data\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Managers\EnemySpawnManager.cs" />
     <Compile Include="Assets\ThirdParty\Matthew Guz\Hits Effects FREE\Scene Demo\Script\Prefab Manager.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBarUI.cs" />
+    <Compile Include="Assets\Scripts\Data\UnitData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

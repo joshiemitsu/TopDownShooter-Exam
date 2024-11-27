@@ -575,6 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57ee21abc61c72409e07c9ffa42917d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_playerData: {fileID: 11400000, guid: b56b1e4c8fe047b4d97fe7d7713d8b93, type: 2}
   m_playerInput: {fileID: 0}
   m_health: 100
   m_maxHealth: 100
@@ -1424,6 +1425,7 @@ MonoBehaviour:
   m_uiManager: {fileID: 1897782809}
   m_scoreManager: {fileID: 33950688}
   m_spawnPoolManager: {fileID: 2141033727}
+  m_gameState: 0
 --- !u!4 &1750502904
 Transform:
   m_ObjectHideFlags: 0
