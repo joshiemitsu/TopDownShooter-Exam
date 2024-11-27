@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] Player m_player;
+    [SerializeField] UIManager m_uiManager;
 
     void Awake()
     {
@@ -22,5 +23,10 @@ public class GameManager : MonoBehaviour
     public Player GetPlayer()
     {
         return m_player;
+    }
+
+    public UIManager GetUIManager()
+    {
+        return m_uiManager;
     }
 }

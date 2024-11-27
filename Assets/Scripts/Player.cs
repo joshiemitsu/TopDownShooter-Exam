@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerState
+{
+    ALIVE,
+    DEAD,
+}
+
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerInput m_playerInput;
 
     [SerializeField] private float m_health = 0;
+    [SerializeField] private float m_maxHealth = 100;
 
     [SerializeField] private float m_movementSpeed = 0;
     [SerializeField] private float m_rotationSpeed = 0;
@@ -17,18 +24,34 @@ public class Player : MonoBehaviour
     [SerializeField] private float m_fireRate = 0;
     private float m_fireRateTimer = 0;
 
+    [SerializeField] private HealthBarUI m_healtBarUI;
+
+    [SerializeField] private PlayerState m_currentState;
+
     // Minimum movement to consider a joystick value
     private const float AIM_MIN_MOVEMENT = 0.01f;
 
+    private const string MOVEMENT_INPUT = "Movement";
+    private const string AIM_INPUT = "Aim";
+
     private void Awake()
     {
+        m_currentState = PlayerState.ALIVE;
         m_playerInput = GetComponent<PlayerInput>();
+        m_healtBarUI = GameManager.Instance.GetUIManager().GetHealthBarUI();
+
+        InitHealth();
     }
 
     private void Update()
     {
-        Vector2 movementInput = m_playerInput.actions["Movement"].ReadValue<Vector2>();
-        Vector2 aimInput = m_playerInput.actions["Aim"].ReadValue<Vector2>();
+        if(m_currentState == PlayerState.DEAD)
+        {
+            return;
+        }
+
+        Vector2 movementInput = m_playerInput.actions[MOVEMENT_INPUT].ReadValue<Vector2>();
+        Vector2 aimInput = m_playerInput.actions[AIM_INPUT].ReadValue<Vector2>();
 
         this.transform.position += m_movementSpeed * Time.deltaTime * new Vector3(movementInput.x, 0, movementInput.y);
 
@@ -46,10 +69,21 @@ public class Player : MonoBehaviour
     public void Damage(float p_damage)
     {
         m_health -= p_damage;
+
+        if(m_health < 0)
+        {
+            m_currentState = PlayerState.DEAD;
+        }
+        else
+        {
+            float percentage = m_health / m_maxHealth;
+            m_healtBarUI.SetHealth(percentage);
+        }
+
         Debug.Log("Damage! Current Health: " + m_health);
     }
 
-    public void ShootBullets()
+    private void ShootBullets()
     {
         m_fireRateTimer += Time.deltaTime;
 
@@ -60,5 +94,11 @@ public class Player : MonoBehaviour
             bullet.transform.localEulerAngles = this.transform.localEulerAngles;
             bullet.GetComponent<Bullets>().Shoot();
         }
+    }
+
+    private void InitHealth()
+    {
+        m_health = m_maxHealth;
+        m_healtBarUI.SetHealth(m_maxHealth);
     }
 }
