@@ -1,0 +1,44 @@
+# Ignore the user-specific files
+UserSettings/
+
+# Ignore the build results
+[Ll]ibrary/
+[Tt]emp/
+Obj/
+[Bb]in/
+
+# Ignore the Unity cache
+# This is related to the cache of the asset pipeline.
+# Unity will rebuild these files when needed.
+[Ll]ibrary/AssetDatabase/
+
+# Ignore generated Visual Studio and other IDE files
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+*.booproj
+*.svd
+.vs/
+
+# Ignore the OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files created by Unity
+*.pidb
+*.mdb
+*.pdb
+
+# Ignore log files
+*.log
+
+# Ignore crash reports
+crash-reports/
+
+# Ignore Unity's global settings and editor preferences
+*.unityproj
+*.sln
+*.user
+*.userprefs
