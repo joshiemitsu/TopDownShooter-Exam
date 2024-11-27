@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 148058812706672023}
   - component: {fileID: 4735314625444794900}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: FastEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
   m_attackCooldown: 1
   m_attackDamage: 10
   m_attackRange: 2
-  m_movementSpeed: 2
+  m_movementSpeed: 2.4
