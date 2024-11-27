@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
     IN_GAME,
-    GAME_OVER
+    PLAYER_WIN,
+    PLAYER_LOSE
 }
 public class GameManager : MonoBehaviour
 {
@@ -54,8 +56,21 @@ public class GameManager : MonoBehaviour
         return m_gameState;
     }
 
-    public void SetGameOver()
+    public void SetPlayerLose()
     {
-        m_gameState = GameState.GAME_OVER;
+        m_gameState = GameState.PLAYER_LOSE;
+        m_uiManager.GetGameStatusUI().SetPlayerWin(false);
+    }
+
+    public void SetPlayerWin()
+    {
+        m_gameState = GameState.PLAYER_WIN;
+        m_uiManager.GetGameStatusUI().SetPlayerWin(true);
+    }
+
+    public void RestartGame()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 }

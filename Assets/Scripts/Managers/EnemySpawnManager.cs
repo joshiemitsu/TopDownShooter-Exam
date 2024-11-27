@@ -25,6 +25,11 @@ public class EnemySpawnManager : MonoBehaviour
 
     public void Update()
     {
+        if(GameManager.Instance.GetGameState() != GameState.IN_GAME)
+        {
+            return;
+        }
+
         m_spawnTimer += Time.deltaTime;
 
         if(m_spawnTimer > m_spawnRate)

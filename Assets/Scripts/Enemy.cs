@@ -20,12 +20,19 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("SetInitialHealth");
         m_enemyData.Health = m_enemyData.MaxHealth;
+        m_attackTimer = m_enemyData.AttackCooldown;
         ChangeState(EnemyState.INIT);
     }
 
     private void Update()
     {
+        if(GameManager.Instance.GetGameState() != GameState.IN_GAME)
+        {
+            return;
+        }
+
         switch (m_currentState)
         {
             case EnemyState.INIT:

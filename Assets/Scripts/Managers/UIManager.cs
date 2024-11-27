@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private HealthBarUI m_healthBar;
     [SerializeField] private EnemiesKilledUI m_enemiesKilledUI;
+    [SerializeField] private GameStatusUI m_gameStatusUI;
 
     public HealthBarUI GetHealthBarUI()
     {
@@ -15,5 +16,10 @@ public class UIManager : MonoBehaviour
     public EnemiesKilledUI GetEnemiesKilledUI()
     {
         return m_enemiesKilledUI;
+    }
+
+    public GameStatusUI GetGameStatusUI()
+    {
+        return m_gameStatusUI;
     }
 }

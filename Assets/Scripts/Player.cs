@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(m_currentState == PlayerState.DEAD)
+        if(m_currentState == PlayerState.DEAD ||
+            GameManager.Instance.GetGameState() != GameState.IN_GAME)
         {
             return;
         }
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
 
         m_playerData.Health -= p_damage;
 
-        if(m_playerData.Health < 0)
+        if(m_playerData.Health <= 0)
         {
             m_currentState = PlayerState.DEAD;
 
@@ -79,6 +80,8 @@ public class Player : MonoBehaviour
             particle.transform.position = this.transform.position + new Vector3(0, 2, 0);
 
             this.gameObject.SetActive(false);
+
+            GameManager.Instance.SetPlayerLose();
         }
         else
         {
