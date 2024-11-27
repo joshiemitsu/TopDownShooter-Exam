@@ -76,7 +76,10 @@ public class Player : MonoBehaviour
 
         m_health -= p_damage;
 
-        if(m_health <= 0)
+        float percentage = m_health / m_maxHealth;
+        m_healthBarUI.SetHealth(percentage);
+
+        if (m_health <= 0)
         {
             m_currentState = PlayerState.DEAD;
 
@@ -91,9 +94,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            float percentage = m_health / m_maxHealth;
-            m_healthBarUI.SetHealth(percentage);
-
             GameObject particle = m_spawnPoolManager.GetObject(PooledObjID.PLAYER_DAMAGE_VFX);
             particle.GetComponent<ParticleSystem>().Stop();
             particle.GetComponent<ParticleSystem>().Play();
