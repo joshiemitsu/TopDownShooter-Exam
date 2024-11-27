@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerInput m_playerInput;
 
+    [SerializeField] private float m_health = 0;
+
     [SerializeField] private float m_movementSpeed = 0;
     [SerializeField] private float m_rotationSpeed = 0;
 
@@ -32,5 +34,11 @@ public class Player : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, angle, 0f);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
         }
+    }
+
+    public void Damage(float p_damage)
+    {
+        m_health -= p_damage;
+        Debug.Log("Damage! Current Health: " + m_health);
     }
 }

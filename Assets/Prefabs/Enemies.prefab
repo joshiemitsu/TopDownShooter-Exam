@@ -120,5 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_currentState: 0
   m_targetPlayer: {fileID: 0}
+  m_attackCooldown: 1
+  m_attackDamage: 10
   m_attackRange: 2
   m_movementSpeed: 2

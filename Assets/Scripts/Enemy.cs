@@ -15,8 +15,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyState m_currentState;
     [SerializeField] private Player m_targetPlayer;
 
-    [SerializeField] private float m_attackRange;
-    [SerializeField] private float m_movementSpeed;
+    [SerializeField] private float m_attackCooldown = 0;
+    [SerializeField] private float m_attackDamage = 0;
+    [SerializeField] private float m_attackRange = 0;
+    [SerializeField] private float m_movementSpeed = 0;
+
+    private float m_attackTimer = 0;
 
     private void Awake()
     {
@@ -117,6 +121,24 @@ public class Enemy : MonoBehaviour
         {
             ChangeState(EnemyState.MOVE);
             return;
+        }
+
+        m_attackTimer += Time.deltaTime;
+
+        if(m_attackTimer >= m_attackCooldown)
+        {
+            m_attackTimer = 0;
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, m_attackRange);
+
+            foreach(Collider hitCollider in hitColliders)
+            {
+                Player m_targetPlayer = hitCollider.GetComponent<Player>();
+                if(m_targetPlayer)
+                {
+                    Debug.Log("Attack Player");
+                    m_targetPlayer.Damage(m_attackDamage);
+                }
+            }
         }
     }
 

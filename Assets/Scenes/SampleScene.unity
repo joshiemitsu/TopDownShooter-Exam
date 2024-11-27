@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerInput: {fileID: 0}
+  m_health: 100
   m_movementSpeed: 7
   m_rotationSpeed: 20
 --- !u!114 &79497599
