@@ -2043,7 +2043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: {fileID: 0}
-  m_spawnRate: 2.5
+  m_spawnRate: 1.8
   m_playerRange: 4
   m_minMaxWidth: {x: -13, y: 13}
   m_minMaxHeight: {x: -5, y: 5}

@@ -64,8 +64,10 @@ public class EnemySpawnManager : MonoBehaviour
 
         Vector3 playerPosition = m_player.transform.position;
 
+        Vector3 adjustedOffsetPos = (randomPos + playerPosition);
+
         // Continue creating generating a position that is outside the player's range.
-        while (Vector3.Distance(playerPosition, randomPos) < m_playerRange)
+        while (Vector3.Distance(playerPosition, adjustedOffsetPos) < m_playerRange)
         {
             // This is to prevent infinite loop if the developer failed to set a player range
             if(m_playerRange <= 0)
@@ -76,8 +78,9 @@ public class EnemySpawnManager : MonoBehaviour
             randomPos = new Vector3(UnityEngine.Random.Range(m_minMaxWidth.x, m_minMaxWidth.y),
                                     this.transform.position.y,
                                     UnityEngine.Random.Range(m_minMaxHeight.x, m_minMaxHeight.y));
+            adjustedOffsetPos = (randomPos + playerPosition);
         }
 
-        return randomPos;
+        return adjustedOffsetPos;
     }
 }
