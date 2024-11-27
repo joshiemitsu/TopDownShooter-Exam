@@ -16,13 +16,25 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyState m_currentState;
     [SerializeField] private Player m_targetPlayer;
 
+
+    private float m_health = 0;
+    private float m_maxHealth = 0;
+    private float m_attackCooldown = 0;
+    private float m_attackDamage = 0;
+    private float m_attackRange = 0;
+    private float m_movementSpeed = 0;
     private float m_attackTimer = 0;
 
     private void OnEnable()
     {
-        Debug.Log("SetInitialHealth");
-        m_enemyData.Health = m_enemyData.MaxHealth;
+        m_health = m_enemyData.MaxHealth;
+        m_maxHealth = m_enemyData.MaxHealth;
+        m_attackDamage = m_enemyData.AttackDamage;
+        m_attackRange = m_enemyData.AttackRange;
+        m_attackCooldown = m_enemyData.AttackCooldown;
         m_attackTimer = m_enemyData.AttackCooldown;
+        m_movementSpeed = m_enemyData.MovementSpeed;
+
         ChangeState(EnemyState.INIT);
     }
 
@@ -122,7 +134,7 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 direction = (m_targetPlayer.transform.position - this.transform.position).normalized;
-        this.transform.position += direction * m_enemyData.MovementSpeed * Time.deltaTime;
+        this.transform.position += direction * m_movementSpeed * Time.deltaTime;
     }
 
     private void AttackTarget()
@@ -136,17 +148,17 @@ public class Enemy : MonoBehaviour
 
         m_attackTimer += Time.deltaTime;
 
-        if(m_attackTimer >= m_enemyData.AttackCooldown)
+        if(m_attackTimer >= m_attackCooldown)
         {
             m_attackTimer = 0;
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, m_enemyData.AttackRange);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, m_attackRange);
 
             foreach(Collider hitCollider in hitColliders)
             {
                 Player m_targetPlayer = hitCollider.GetComponent<Player>();
                 if(m_targetPlayer)
                 {
-                    m_targetPlayer.Damage(m_enemyData.AttackDamage);
+                    m_targetPlayer.Damage(m_attackDamage);
                 }
             }
         }
@@ -154,14 +166,14 @@ public class Enemy : MonoBehaviour
 
     private bool IsWithinAttackRange()
     {
-        return (Vector3.Distance(m_targetPlayer.transform.position, this.transform.position) < m_enemyData.AttackRange);
+        return (Vector3.Distance(m_targetPlayer.transform.position, this.transform.position) < m_attackRange);
     }
 
     public void Damage(float p_damage)
     {
-        m_enemyData.Health -= p_damage;
+        m_health -= p_damage;
 
-        if(m_enemyData.Health <= 0)
+        if(m_health <= 0)
         {
             // Set Data and UI
             GameManager.Instance.GetScoreManager().EnemyKilled++;

@@ -14,10 +14,16 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerData m_playerData;
     [SerializeField] private PlayerInput m_playerInput;
 
+    private float m_health = 0;
+    private float m_maxHealth = 0;
+    private float m_movementSpeed = 0;
+    private float m_rotationSpeed = 0;
+    private float m_fireRate = 0;
+
     private float m_fireRateTimer = 0;
 
     [SerializeField] private SpawnPoolManager m_spawnPoolManager;
-    [SerializeField] private HealthBarUI m_healtBarUI;
+    [SerializeField] private HealthBarUI m_healthBarUI;
 
     [SerializeField] private PlayerState m_currentState;
 
@@ -31,7 +37,7 @@ public class Player : MonoBehaviour
     {
         m_currentState = PlayerState.ALIVE;
         m_playerInput = GetComponent<PlayerInput>();
-        m_healtBarUI = GameManager.Instance.GetUIManager().GetHealthBarUI();
+        m_healthBarUI = GameManager.Instance.GetUIManager().GetHealthBarUI();
         m_spawnPoolManager = GameManager.Instance.GetSpawnPoolManager();
 
         InitHealth();
@@ -48,14 +54,14 @@ public class Player : MonoBehaviour
         Vector2 movementInput = m_playerInput.actions[MOVEMENT_INPUT].ReadValue<Vector2>();
         Vector2 aimInput = m_playerInput.actions[AIM_INPUT].ReadValue<Vector2>();
 
-        this.transform.position += m_playerData.MovementSpeed * Time.deltaTime * new Vector3(movementInput.x, 0, movementInput.y);
+        this.transform.position += m_movementSpeed * Time.deltaTime * new Vector3(movementInput.x, 0, movementInput.y);
 
         // Check joystick value for change before setting the aim rotation
         if(aimInput.sqrMagnitude > AIM_MIN_MOVEMENT)
         {
             float angle = Mathf.Atan2(aimInput.x, aimInput.y) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0f, angle, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_playerData.RotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
 
             ShootBullets();
         }
@@ -63,14 +69,14 @@ public class Player : MonoBehaviour
 
     public void Damage(float p_damage)
     {
-        if (m_playerData.Health < 0)
+        if (m_health < 0)
         {
             return;
         }
 
-        m_playerData.Health -= p_damage;
+        m_health -= p_damage;
 
-        if(m_playerData.Health <= 0)
+        if(m_health <= 0)
         {
             m_currentState = PlayerState.DEAD;
 
@@ -85,8 +91,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            float percentage = m_playerData.Health / m_playerData.MaxHealth;
-            m_healtBarUI.SetHealth(percentage);
+            float percentage = m_health / m_maxHealth;
+            m_healthBarUI.SetHealth(percentage);
 
             GameObject particle = m_spawnPoolManager.GetObject(PooledObjID.PLAYER_DAMAGE_VFX);
             particle.GetComponent<ParticleSystem>().Stop();
@@ -100,7 +106,7 @@ public class Player : MonoBehaviour
     {
         m_fireRateTimer += Time.deltaTime;
 
-        if(m_fireRateTimer > m_playerData.FireRate)
+        if(m_fireRateTimer > m_fireRate)
         {
             m_fireRateTimer = 0;
             GameObject bullet = m_spawnPoolManager.GetObject(PooledObjID.BULLET_PREFAB);
@@ -112,7 +118,12 @@ public class Player : MonoBehaviour
 
     private void InitHealth()
     {
-        m_playerData.Health = m_playerData.MaxHealth;
-        m_healtBarUI.SetHealth(m_playerData.MaxHealth);
+        m_health = m_playerData.MaxHealth;
+        m_maxHealth = m_playerData.MaxHealth;
+        m_movementSpeed = m_playerData.MovementSpeed;
+        m_rotationSpeed = m_playerData.RotationSpeed;
+        m_fireRate = m_playerData.FireRate;
+
+        m_healthBarUI.SetHealth(m_maxHealth);
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Managers\SpawnPoolManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\ThirdParty\Matthew Guz\Hits Effects FREE\Scene Demo\Script\RotationEffect.cs" />
+    <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\ShutdownTimer.cs" />
     <Compile Include="Assets\Scripts\Data\EnemyData.cs" />
