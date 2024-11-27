@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Player m_player;
     [SerializeField] UIManager m_uiManager;
+    [SerializeField] ScoreManager m_scoreManager;
 
     void Awake()
     {
@@ -28,5 +29,10 @@ public class GameManager : MonoBehaviour
     public UIManager GetUIManager()
     {
         return m_uiManager;
+    }
+
+    public ScoreManager GetScoreManager()
+    {
+        return m_scoreManager;
     }
 }

@@ -154,6 +154,9 @@ public class Enemy : MonoBehaviour
 
         if(m_health <= 0)
         {
+            GameManager.Instance.GetScoreManager().EnemyKilled++;
+            int enemyKilled = GameManager.Instance.GetScoreManager().EnemyKilled;
+            GameManager.Instance.GetUIManager().GetEnemiesKilledUI().SetText(enemyKilled);
             ChangeState(EnemyState.DEAD);
         }
     }

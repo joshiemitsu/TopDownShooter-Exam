@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     private const string MOVEMENT_INPUT = "Movement";
     private const string AIM_INPUT = "Aim";
 
-    private void Awake()
+    private void Start()
     {
         m_currentState = PlayerState.ALIVE;
         m_playerInput = GetComponent<PlayerInput>();
