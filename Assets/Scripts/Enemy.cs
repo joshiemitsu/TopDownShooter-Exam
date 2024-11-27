@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Player m_targetPlayer;
 
     [SerializeField] private float m_health = 0;
+    [SerializeField] private float m_maxHealth = 0;
     [SerializeField] private float m_attackCooldown = 0;
     [SerializeField] private float m_attackDamage = 0;
     [SerializeField] private float m_attackRange = 0;
@@ -23,8 +24,9 @@ public class Enemy : MonoBehaviour
 
     private float m_attackTimer = 0;
 
-    private void Awake()
+    private void OnEnable()
     {
+        m_health = m_maxHealth;
         ChangeState(EnemyState.INIT);
     }
 
@@ -95,17 +97,24 @@ public class Enemy : MonoBehaviour
 
     public void Init()
     {
-        if(m_targetPlayer == null)
-        {
-            m_targetPlayer = GameManager.Instance.GetPlayer();
-        }
         ChangeState(EnemyState.MOVE);
     }
 
     private void MoveToTarget()
     {
+        // Set the target if there is no target yet.
+        if (m_targetPlayer == null)
+        {
+            Player player = GameManager.Instance.GetPlayer();
+            if (player)
+            {
+                m_targetPlayer = player;
+            }
+
+        }
+
         // If target is within range proceed to attack again.
-        if(IsWithinAttackRange())
+        if (IsWithinAttackRange())
         {
             ChangeState(EnemyState.ATTACK);
             return;
@@ -154,9 +163,18 @@ public class Enemy : MonoBehaviour
 
         if(m_health <= 0)
         {
+            // Set Data and UI
             GameManager.Instance.GetScoreManager().EnemyKilled++;
             int enemyKilled = GameManager.Instance.GetScoreManager().EnemyKilled;
             GameManager.Instance.GetUIManager().GetEnemiesKilledUI().SetText(enemyKilled);
+
+            // Display effects
+            GameObject particle = GameManager.Instance.GetSpawnPoolManager()
+                                    .GetObject(PooledObjID.ENEMY_KILLED_VFX);
+            particle.GetComponent<ParticleSystem>().Stop();
+            particle.GetComponent<ParticleSystem>().Play();
+            particle.transform.position = this.transform.position;
+
             ChangeState(EnemyState.DEAD);
         }
     }

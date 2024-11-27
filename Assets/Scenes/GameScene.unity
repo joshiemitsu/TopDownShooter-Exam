@@ -582,6 +582,7 @@ MonoBehaviour:
   m_rotationSpeed: 20
   m_bulletPrefab: {fileID: 8749742515397979450, guid: e9b4e1e5c67d36c4c9eb07c960ff62d0, type: 3}
   m_fireRate: 0.4
+  m_spawnPoolManager: {fileID: 0}
   m_healtBarUI: {fileID: 0}
   m_currentState: 0
 --- !u!114 &79497599
@@ -937,7 +938,7 @@ Transform:
   m_GameObject: {fileID: 354332311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4, z: 0}
+  m_LocalPosition: {x: 0, y: -1.36, z: 0}
   m_LocalScale: {x: 57.1, y: 1, z: 48.463}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1422,6 +1423,7 @@ MonoBehaviour:
   m_player: {fileID: 79497598}
   m_uiManager: {fileID: 1897782809}
   m_scoreManager: {fileID: 33950688}
+  m_spawnPoolManager: {fileID: 2141033727}
 --- !u!4 &1750502904
 Transform:
   m_ObjectHideFlags: 0
@@ -1438,6 +1440,7 @@ Transform:
   - {fileID: 1857185721}
   - {fileID: 1897782808}
   - {fileID: 33950687}
+  - {fileID: 2141033726}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1857185720
@@ -1485,10 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: {fileID: 0}
-  m_enemyPrefab:
-  - {fileID: 4735314625444794900, guid: 9cdab6823e2252b41800caa633747f29, type: 3}
-  - {fileID: 4735314625444794900, guid: 4c071525df1933945b284717702d973a, type: 3}
-  m_spawnRate: 2
+  m_spawnRate: 5
   m_playerRange: 4
   m_minMaxWidth: {x: -13, y: 13}
   m_minMaxHeight: {x: -5, y: 5}
@@ -1853,6 +1853,72 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2141033725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2141033726}
+  - component: {fileID: 2141033727}
+  m_Layer: 0
+  m_Name: SpawnPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2141033726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141033725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1750502904}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2141033727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141033725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc7ec759e1bb0c40a8986e17318b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_objDataList:
+  - ID: FastEnemyPrefab
+    Prefab: {fileID: 934792539009165565, guid: 9cdab6823e2252b41800caa633747f29, type: 3}
+    Count: 10
+  - ID: SlowEnemyPrefab
+    Prefab: {fileID: 934792539009165565, guid: 4c071525df1933945b284717702d973a, type: 3}
+    Count: 10
+  - ID: BulletPrefab
+    Prefab: {fileID: 8749742515397979450, guid: e9b4e1e5c67d36c4c9eb07c960ff62d0, type: 3}
+    Count: 15
+  - ID: BulletHitVfx
+    Prefab: {fileID: 7275548786892498063, guid: 5bc9a0bf98f67d240a936bf476ba2082, type: 3}
+    Count: 10
+  - ID: PlayerDamageVfx
+    Prefab: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
+    Count: 10
+  - ID: PlayerKilledVfx
+    Prefab: {fileID: 362261158077530393, guid: 20fda529c996a334da7fd65b48ea40df, type: 3}
+    Count: 10
+  - ID: EnemyKilledVfx
+    Prefab: {fileID: 162584487599433031, guid: 39f852c28f9c3fd45a427c24f3564ba7, type: 3}
+    Count: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

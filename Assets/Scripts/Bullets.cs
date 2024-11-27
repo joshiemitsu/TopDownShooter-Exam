@@ -7,11 +7,20 @@ public class Bullets : MonoBehaviour
     [SerializeField] private float m_damage;
     [SerializeField] private float m_speed;
 
+    private SpawnPoolManager m_spawnPoolManager;
     private Rigidbody m_rigidbody;
 
-    void Awake()
+    void OnEnable()
     {
-        m_rigidbody = this.GetComponent<Rigidbody>();
+        if(m_rigidbody == null)
+        {
+            m_rigidbody = this.GetComponent<Rigidbody>();
+        }
+
+        if(m_spawnPoolManager == null)
+        {
+            m_spawnPoolManager = GameManager.Instance.GetSpawnPoolManager();
+        }
     }
 
     public void Shoot()
@@ -28,6 +37,12 @@ public class Bullets : MonoBehaviour
         if(enemy)
         {
             enemy.Damage(m_damage);
+
+            GameObject particle = m_spawnPoolManager.GetObject(PooledObjID.BULLET_HIT_VFX);
+            particle.GetComponent<ParticleSystem>().Stop();
+            particle.GetComponent<ParticleSystem>().Play();
+            particle.transform.position = this.transform.position;
+
             this.gameObject.SetActive(false);
         }
     }

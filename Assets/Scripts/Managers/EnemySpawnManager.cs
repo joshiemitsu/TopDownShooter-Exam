@@ -5,12 +5,9 @@ using System;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    private const int FAST_ENEMY_IDX = 0;
-    private const int SLOW_ENEMY_IDX = 1;
     private const float SPAWN_PERCENTAGE = 50;
 
     [SerializeField] private Player m_player;
-    [SerializeField] private List<Enemy> m_enemyPrefab = new List<Enemy>();
 
     [SerializeField] private float m_spawnRate = 0;
 
@@ -35,7 +32,8 @@ public class EnemySpawnManager : MonoBehaviour
             m_spawnTimer = 0;
             Vector3 randomPos = GetRandomPosition();
 
-            Instantiate(GetRandomEnemyType(), randomPos, Quaternion.identity);
+            Enemy enemy = GetRandomEnemyType();
+            enemy.transform.position = randomPos;
         }
     }
 
@@ -45,11 +43,11 @@ public class EnemySpawnManager : MonoBehaviour
 
         if(randomVal > SPAWN_PERCENTAGE)
         {
-            return m_enemyPrefab[FAST_ENEMY_IDX];
+            return GameManager.Instance.GetSpawnPoolManager().GetObject(PooledObjID.FAST_ENEMY_PREFAB).GetComponent<Enemy>();
         }
         else
         {
-            return m_enemyPrefab[SLOW_ENEMY_IDX];
+            return GameManager.Instance.GetSpawnPoolManager().GetObject(PooledObjID.SLOW_ENEMY_PREFAB).GetComponent<Enemy>();
         }
     }
 

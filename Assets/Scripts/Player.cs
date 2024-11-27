@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float m_fireRate = 0;
     private float m_fireRateTimer = 0;
 
+    [SerializeField] private SpawnPoolManager m_spawnPoolManager;
     [SerializeField] private HealthBarUI m_healtBarUI;
 
     [SerializeField] private PlayerState m_currentState;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
         m_currentState = PlayerState.ALIVE;
         m_playerInput = GetComponent<PlayerInput>();
         m_healtBarUI = GameManager.Instance.GetUIManager().GetHealthBarUI();
+        m_spawnPoolManager = GameManager.Instance.GetSpawnPoolManager();
 
         InitHealth();
     }
@@ -68,19 +70,35 @@ public class Player : MonoBehaviour
 
     public void Damage(float p_damage)
     {
+        if (m_health < 0)
+        {
+            return;
+        }
+
         m_health -= p_damage;
 
         if(m_health < 0)
         {
             m_currentState = PlayerState.DEAD;
+
+            GameObject particle = m_spawnPoolManager.GetObject(PooledObjID.PLAYER_KILLED_VFX);
+            particle.GetComponent<ParticleSystem>().Stop();
+            particle.GetComponent<ParticleSystem>().Play();
+            particle.transform.position = this.transform.position + new Vector3(0, 2, 0);
+
+            this.gameObject.SetActive(false);
         }
         else
         {
             float percentage = m_health / m_maxHealth;
             m_healtBarUI.SetHealth(percentage);
+
+            GameObject particle = m_spawnPoolManager.GetObject(PooledObjID.PLAYER_DAMAGE_VFX);
+            particle.GetComponent<ParticleSystem>().Stop();
+            particle.GetComponent<ParticleSystem>().Play();
+            particle.transform.position = this.transform.position + new Vector3(0, 2, 0);
         }
 
-        Debug.Log("Damage! Current Health: " + m_health);
     }
 
     private void ShootBullets()
@@ -90,7 +108,8 @@ public class Player : MonoBehaviour
         if(m_fireRateTimer > m_fireRate)
         {
             m_fireRateTimer = 0;
-            GameObject bullet = Instantiate(m_bulletPrefab, this.transform.position, Quaternion.identity);
+            GameObject bullet = m_spawnPoolManager.GetObject(PooledObjID.BULLET_PREFAB);
+            bullet.transform.position = this.transform.position;
             bullet.transform.localEulerAngles = this.transform.localEulerAngles;
             bullet.GetComponent<Bullets>().Shoot();
         }
