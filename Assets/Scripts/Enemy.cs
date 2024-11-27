@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyState m_currentState;
     [SerializeField] private Player m_targetPlayer;
 
+    [SerializeField] private float m_health = 0;
     [SerializeField] private float m_attackCooldown = 0;
     [SerializeField] private float m_attackDamage = 0;
     [SerializeField] private float m_attackRange = 0;
@@ -81,7 +82,7 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyState.DEAD:
                 {
-
+                    this.gameObject.SetActive(false);
                 }
                 break;
             default:
@@ -145,5 +146,15 @@ public class Enemy : MonoBehaviour
     private bool IsWithinAttackRange()
     {
         return (Vector3.Distance(m_targetPlayer.transform.position, this.transform.position) < m_attackRange);
+    }
+
+    public void Damage(float p_damage)
+    {
+        m_health -= p_damage;
+
+        if(m_health <= 0)
+        {
+            ChangeState(EnemyState.DEAD);
+        }
     }
 }
