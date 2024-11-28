@@ -8,18 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private EnemiesKilledUI m_enemiesKilledUI;
     [SerializeField] private GameStatusUI m_gameStatusUI;
 
-    public HealthBarUI GetHealthBarUI()
-    {
-        return m_healthBar;
-    }
-
-    public EnemiesKilledUI GetEnemiesKilledUI()
-    {
-        return m_enemiesKilledUI;
-    }
-
-    public GameStatusUI GetGameStatusUI()
-    {
-        return m_gameStatusUI;
-    }
+    public HealthBarUI HealthBarUI => m_healthBar;
+    public EnemiesKilledUI EnemiesKilledUI => m_enemiesKilledUI;
+    public GameStatusUI GameStatusUI => m_gameStatusUI;
 }

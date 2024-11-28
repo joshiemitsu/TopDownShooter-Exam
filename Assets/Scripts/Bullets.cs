@@ -19,7 +19,7 @@ public class Bullets : MonoBehaviour
 
         if(m_spawnPoolManager == null)
         {
-            m_spawnPoolManager = GameManager.Instance.GetSpawnPoolManager();
+            m_spawnPoolManager = GameManager.Instance.SpawnPoolManager;
         }
     }
 

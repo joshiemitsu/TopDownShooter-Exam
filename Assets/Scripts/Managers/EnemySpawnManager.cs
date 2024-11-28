@@ -20,12 +20,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        m_player = GameManager.Instance.GetPlayer();
+        m_player = GameManager.Instance.Player;
     }
 
     private void Update()
     {
-        if(GameManager.Instance.GetGameState() != GameState.IN_GAME)
+        if(GameManager.Instance.GameState != GameState.IN_GAME)
         {
             return;
         }
@@ -48,11 +48,11 @@ public class EnemySpawnManager : MonoBehaviour
 
         if(randomVal > SPAWN_PERCENTAGE)
         {
-            return GameManager.Instance.GetSpawnPoolManager().GetObject(PooledObjID.FAST_ENEMY_PREFAB).GetComponent<Enemy>();
+            return GameManager.Instance.SpawnPoolManager.GetObject(PooledObjID.FAST_ENEMY_PREFAB).GetComponent<Enemy>();
         }
         else
         {
-            return GameManager.Instance.GetSpawnPoolManager().GetObject(PooledObjID.SLOW_ENEMY_PREFAB).GetComponent<Enemy>();
+            return GameManager.Instance.SpawnPoolManager.GetObject(PooledObjID.SLOW_ENEMY_PREFAB).GetComponent<Enemy>();
         }
     }
 

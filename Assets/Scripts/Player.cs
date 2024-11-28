@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
     {
         m_currentState = PlayerState.ALIVE;
         m_playerInput = GetComponent<PlayerInput>();
-        m_healthBarUI = GameManager.Instance.GetUIManager().GetHealthBarUI();
-        m_spawnPoolManager = GameManager.Instance.GetSpawnPoolManager();
+        m_healthBarUI = GameManager.Instance.UIManager.HealthBarUI;
+        m_spawnPoolManager = GameManager.Instance.SpawnPoolManager;
 
         InitHealth();
     }
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if(m_currentState == PlayerState.DEAD ||
-            GameManager.Instance.GetGameState() != GameState.IN_GAME)
+            GameManager.Instance.GameState != GameState.IN_GAME)
         {
             return;
         }

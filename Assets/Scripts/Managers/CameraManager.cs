@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour
 {
     private void Update()
     {
-        Player player = GameManager.Instance.GetPlayer();
+        Player player = GameManager.Instance.Player;
         if (player)
         {
             Vector3 playerPos = player.transform.position;

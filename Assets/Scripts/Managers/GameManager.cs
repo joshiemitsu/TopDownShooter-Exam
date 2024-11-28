@@ -13,12 +13,19 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] Player m_player;
-    [SerializeField] UIManager m_uiManager;
-    [SerializeField] ScoreManager m_scoreManager;
-    [SerializeField] SpawnPoolManager m_spawnPoolManager;
+    [SerializeField] private Player m_player;
+    [SerializeField] private UIManager m_uiManager;
+    [SerializeField] private ScoreManager m_scoreManager;
+    [SerializeField] private SpawnPoolManager m_spawnPoolManager;
 
-    [SerializeField] GameState m_gameState;
+    [SerializeField] private GameState m_gameState;
+
+    public Player Player => m_player;
+    public UIManager UIManager => m_uiManager;
+    public ScoreManager ScoreManager => m_scoreManager;
+    public SpawnPoolManager SpawnPoolManager => m_spawnPoolManager;
+
+    public GameState GameState => m_gameState;
 
     void Awake()
     {
@@ -31,41 +38,17 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-    public Player GetPlayer()
-    {
-        return m_player;
-    }
-
-    public UIManager GetUIManager()
-    {
-        return m_uiManager;
-    }
-
-    public ScoreManager GetScoreManager()
-    {
-        return m_scoreManager;
-    }
-
-    public SpawnPoolManager GetSpawnPoolManager()
-    {
-        return m_spawnPoolManager;
-    }
-
-    public GameState GetGameState()
-    {
-        return m_gameState;
-    }
 
     public void SetPlayerLose()
     {
         m_gameState = GameState.PLAYER_LOSE;
-        m_uiManager.GetGameStatusUI().SetPlayerWin(false);
+        m_uiManager.GameStatusUI.SetPlayerWin(false);
     }
 
     public void SetPlayerWin()
     {
         m_gameState = GameState.PLAYER_WIN;
-        m_uiManager.GetGameStatusUI().SetPlayerWin(true);
+        m_uiManager.GameStatusUI.SetPlayerWin(true);
     }
 
     public void RestartGame()

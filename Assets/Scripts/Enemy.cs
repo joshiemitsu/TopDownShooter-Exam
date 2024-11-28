@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.GetGameState() != GameState.IN_GAME)
+        if(GameManager.Instance.GameState != GameState.IN_GAME)
         {
             return;
         }
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
         // Set the target if there is no target yet.
         if (m_targetPlayer == null)
         {
-            Player player = GameManager.Instance.GetPlayer();
+            Player player = GameManager.Instance.Player;
             if (player)
             {
                 m_targetPlayer = player;
@@ -175,12 +175,12 @@ public class Enemy : MonoBehaviour
         if(m_health <= 0)
         {
             // Set Data and UI
-            GameManager.Instance.GetScoreManager().EnemyKilled++;
-            int enemyKilled = GameManager.Instance.GetScoreManager().EnemyKilled;
-            GameManager.Instance.GetUIManager().GetEnemiesKilledUI().SetText(enemyKilled);
+            GameManager.Instance.ScoreManager.EnemyKilled++;
+            int enemyKilled = GameManager.Instance.ScoreManager.EnemyKilled;
+            GameManager.Instance.UIManager.EnemiesKilledUI.SetText(enemyKilled);
 
             // Display effects
-            GameObject particle = GameManager.Instance.GetSpawnPoolManager()
+            GameObject particle = GameManager.Instance.SpawnPoolManager
                                     .GetObject(PooledObjID.ENEMY_KILLED_VFX);
             particle.GetComponent<ParticleSystem>().Stop();
             particle.GetComponent<ParticleSystem>().Play();
