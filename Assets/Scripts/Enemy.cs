@@ -13,9 +13,8 @@ public enum EnemyState
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyData m_enemyData;
-    [SerializeField] private EnemyState m_currentState;
-    [SerializeField] private Player m_targetPlayer;
-
+    private EnemyState m_currentState;
+    private Player m_targetPlayer;
 
     private float m_health = 0;
     private float m_maxHealth = 0;
@@ -75,7 +74,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void ChangeState(EnemyState p_newState)
+    private void ChangeState(EnemyState p_newState)
     {
         m_currentState = p_newState;
 
@@ -108,7 +107,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Init()
+    private void Init()
     {
         ChangeState(EnemyState.MOVE);
     }

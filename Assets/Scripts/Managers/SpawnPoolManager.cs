@@ -32,12 +32,12 @@ public class SpawnPoolManager : MonoBehaviour
     [SerializeField]
     private Dictionary<string, List<GameObject>> m_pooledObject = new Dictionary<string, List<GameObject>>();
 
-    void Start()
+    private void Start()
     {
         Initialize();
     }
 
-    public void Initialize()
+    private void Initialize()
     {
         for (int i = 0; i < m_objDataList.Count; i++)
         {

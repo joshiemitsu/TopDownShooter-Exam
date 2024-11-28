@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField] private float m_damage;
-    [SerializeField] private float m_speed;
+    [SerializeField] private float m_damage = 0;
+    [SerializeField] private float m_speed = 0;
 
-    private SpawnPoolManager m_spawnPoolManager;
-    private Rigidbody m_rigidbody;
+    private SpawnPoolManager m_spawnPoolManager = null;
+    private Rigidbody m_rigidbody = null;
 
-    void OnEnable()
+    private void OnEnable()
     {
         if(m_rigidbody == null)
         {
@@ -31,7 +31,7 @@ public class Bullets : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider p_collider)
+    private void OnTriggerEnter(Collider p_collider)
     {
         Enemy enemy = p_collider.GetComponent<Enemy>();
         if(enemy)

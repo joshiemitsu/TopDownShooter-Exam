@@ -7,7 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
 {
     private const float SPAWN_PERCENTAGE = 50;
 
-    [SerializeField] private Player m_player;
+    private Player m_player;
 
     [SerializeField] private float m_spawnRate = 0;
 
@@ -18,12 +18,12 @@ public class EnemySpawnManager : MonoBehaviour
 
     private float m_spawnTimer = 0;
 
-    void Start()
+    private void Start()
     {
         m_player = GameManager.Instance.GetPlayer();
     }
 
-    public void Update()
+    private void Update()
     {
         if(GameManager.Instance.GetGameState() != GameState.IN_GAME)
         {

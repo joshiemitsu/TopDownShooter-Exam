@@ -7,7 +7,7 @@ public class EnemiesKilledUI : MonoBehaviour
 {
     [SerializeField] TMP_Text m_text;
 
-    void Awake()
+    private void Awake()
     {
         m_text = this.GetComponent<TMP_Text>();
     }

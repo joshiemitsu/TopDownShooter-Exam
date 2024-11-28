@@ -6,8 +6,8 @@ using TMPro;
 
 public class GameStatusUI : MonoBehaviour
 {
-    [SerializeField] TMP_Text m_text;
-    [SerializeField] Button m_restartButton;
+    [SerializeField] private TMP_Text m_text;
+    [SerializeField] private Button m_restartButton;
 
     private const string PLAYER_WIN_TEXT = "PLAYER WIN!";
     private const string PLAYER_LOSE_TEXT = "PLAYER LOSE!";
@@ -31,7 +31,7 @@ public class GameStatusUI : MonoBehaviour
         }
     }
 
-    public void RestartButtonPressed()
+    private void RestartButtonPressed()
     {
         GameManager.Instance.RestartGame();
     }

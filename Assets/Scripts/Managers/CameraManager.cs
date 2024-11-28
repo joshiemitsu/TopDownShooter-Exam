@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    void Update()
+    private void Update()
     {
-        Vector3 playerPos = GameManager.Instance.GetPlayer().transform.position;
-        this.transform.position = new Vector3(playerPos.x, this.transform.position.y, playerPos.z);
+        Player player = GameManager.Instance.GetPlayer();
+        if (player)
+        {
+            Vector3 playerPos = player.transform.position;
+            this.transform.position = new Vector3(playerPos.x, this.transform.position.y, playerPos.z);
+        }
     }
 }

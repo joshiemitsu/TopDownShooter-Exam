@@ -12,7 +12,7 @@ public class ShutdownTimer : MonoBehaviour
         m_shutdownTimer = 0;
     }
 
-    void Update()
+    private void Update()
     {
         m_shutdownTimer += Time.deltaTime;
         if(m_shutdownTimer > m_timeToDeactivate)

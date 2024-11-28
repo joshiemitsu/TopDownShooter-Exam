@@ -12,7 +12,7 @@ public enum PlayerState
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerData m_playerData;
-    [SerializeField] private PlayerInput m_playerInput;
+    private PlayerInput m_playerInput;
 
     private float m_health = 0;
     private float m_maxHealth = 0;
@@ -22,10 +22,10 @@ public class Player : MonoBehaviour
 
     private float m_fireRateTimer = 0;
 
-    [SerializeField] private SpawnPoolManager m_spawnPoolManager;
-    [SerializeField] private HealthBarUI m_healthBarUI;
+    private SpawnPoolManager m_spawnPoolManager;
+    private HealthBarUI m_healthBarUI;
 
-    [SerializeField] private PlayerState m_currentState;
+    private PlayerState m_currentState;
 
     // Minimum movement to consider a joystick value
     private const float AIM_MIN_MOVEMENT = 0.01f;
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
     public void Damage(float p_damage)
     {
-        if (m_health < 0)
+        if (m_health <= 0)
         {
             return;
         }

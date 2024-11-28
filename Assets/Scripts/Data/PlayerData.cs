@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PlayerData", menuName = "Scriptable Objects/PlayerData")]
 public class PlayerData : UnitData
 {
-    public float RotationSpeed;
-    public float FireRate;
+    [SerializeField] private float m_rotationSpeed = 0;
+    [SerializeField] private float m_fireRate = 0;
+
+    public float RotationSpeed => m_rotationSpeed;
+    public float FireRate => m_fireRate;
 }
